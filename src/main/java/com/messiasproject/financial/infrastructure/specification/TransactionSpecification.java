@@ -12,8 +12,6 @@ public class TransactionSpecification implements Specification<TransactionEntity
 
     @Override
     public Predicate toPredicate(Root<TransactionEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        /*Subquery<TagEntity> tagEntitySubquery = query.subquery(TagEntity.class);
-        Root<TagEntity> rootTag = tagEntitySubquery.from(TagEntity.class);*/
         return criteriaBuilder.equal(root.get("tag"), tagEntity);
     }
 }

@@ -8,4 +8,6 @@ import java.math.BigDecimal;
 public class ResumeToExternalTagDTO {
     private String name;
     private BigDecimal currentValue;
+
+    private BigDecimal balance;
 }
