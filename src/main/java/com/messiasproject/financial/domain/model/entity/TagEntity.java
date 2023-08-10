@@ -1,5 +1,6 @@
 package com.messiasproject.financial.domain.model.entity;
 
+import com.messiasproject.financial.api.model.tag.StatusTag;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "rotulo")
+@Table(name = "tag")
 @Data
 public class TagEntity {
     @Id
@@ -24,11 +25,16 @@ public class TagEntity {
     @Column(scale = 2, nullable = false)
     private BigDecimal initialValue;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_tag", nullable = false)
+    private StatusTag status;
+
     @Column(scale = 2, nullable = false)
     private BigDecimal balance;
 
     @PrePersist
-    private void generateUuid(){
+    private void setUp(){
         setUuid(UUID.randomUUID().toString());
+        setStatus(StatusTag.ATIVO);
     }
 }

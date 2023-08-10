@@ -5,7 +5,6 @@ import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.model.entity.TransactionEntity;
 import com.messiasproject.financial.domain.repository.TransactionRepository;
 import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid;
-import com.messiasproject.financial.infrastructure.interfaces.tags.SearchTags;
 import com.messiasproject.financial.infrastructure.interfaces.transactional.SearchTransaction;
 import com.messiasproject.financial.infrastructure.specification.TransactionSpecification;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ public class SearchTransactionImple implements SearchTransaction {
 
     @Override
     public Page<SearchTransactionDTO> byTags(String uuidTag, Pageable pageable) {
-        TagEntity tagByUuid = findTagByUuid.findTagByUuid(uuidTag);
+        TagEntity tagByUuid = findTagByUuid.search(uuidTag);
         TransactionSpecification transactionSpecification = new TransactionSpecification(tagByUuid);
         Page<TransactionEntity> pageTransaction = repository.findAll(transactionSpecification, pageable);
         List<SearchTransactionDTO> searchTransactionDTOS = convertList(pageTransaction.getContent(), SearchTransactionDTO.class);

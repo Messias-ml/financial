@@ -6,6 +6,9 @@ import com.messiasproject.financial.domain.service.TagService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class TagController {
     private TagService tagService;
 
     @GetMapping("/all")
-    public List<TagDTO> findTags(){
-        return tagService.findAllTags();
+    public Page<TagDTO> findTags(@PageableDefault Pageable pageable){
+        return tagService.findAllTags(pageable);
     }
 
     @GetMapping
@@ -35,5 +38,10 @@ public class TagController {
     @PostMapping
     public void createTag(@RequestBody @Valid CreationTagDTO tagDTO){
         tagService.createTag(tagDTO);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public void deleteTag(@PathVariable String uuid){
+        tagService.deleteTag(uuid);
     }
 }

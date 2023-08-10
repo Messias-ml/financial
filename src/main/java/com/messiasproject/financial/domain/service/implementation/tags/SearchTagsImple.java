@@ -1,5 +1,6 @@
 package com.messiasproject.financial.domain.service.implementation.tags;
 
+import com.messiasproject.financial.api.model.specification.TagFilterSpec;
 import com.messiasproject.financial.api.model.tag.TagDTO;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.repository.TagRepository;
@@ -24,14 +25,16 @@ public class SearchTagsImple implements SearchTags {
 
     @Override
     public List<TagDTO> findAllByName(String name) {
-        TagSpecification tagSpecification = new TagSpecification(name);
+        TagFilterSpec tagFilterSpec = new TagFilterSpec();
+        tagFilterSpec.setName(name);
+        TagSpecification tagSpecification = new TagSpecification(tagFilterSpec);
         List<TagEntity> tagEntityList = tagRepository.findAll(tagSpecification);
         return convertList(tagEntityList, TagDTO.class);
     }
 
     @Override
     public TagDTO findTagByUuid(String uuid) {
-        TagEntity tagEntity = findTagByUuid.findTagByUuid(uuid);
+        TagEntity tagEntity = findTagByUuid.search(uuid);
         return convert(tagEntity, TagDTO.class);
     }
 }

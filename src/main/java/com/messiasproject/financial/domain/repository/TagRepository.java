@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface TagRepository extends JpaRepository<TagEntity, Long>, JpaSpecificationExecutor<TagEntity> {
     Optional<TagEntity> findTagByUuid(String uuidTag);
+
+    void deleteByUuid(String uuid);
 }

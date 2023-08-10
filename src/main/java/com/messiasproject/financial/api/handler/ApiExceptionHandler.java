@@ -2,6 +2,7 @@ package com.messiasproject.financial.api.handler;
 
 import com.messiasproject.financial.domain.exception.ListEmptyException;
 import com.messiasproject.financial.domain.exception.RecordNotFoundException;
+import com.messiasproject.financial.domain.exception.ThereIsNotRecordException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -23,6 +24,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         Problem problem = getProblem(recordNotFoundException.getMessage(), recordNotFoundException.getObjects(),
                 nameErro, HttpStatus.NOT_FOUND.value());
         return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(problem);
+    }
+    @ExceptionHandler(ThereIsNotRecordException.class)
+    public ResponseEntity<Problem> hendlerThereIsNotRecord(ThereIsNotRecordException thereIsNotRecordException) {
+        String nameErro = "Registro não existente.";
+        Problem problem = getProblem(thereIsNotRecordException.getMessage(), thereIsNotRecordException.getObjects(),
+                nameErro, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(problem);
     }
     @ExceptionHandler(ListEmptyException.class)
     public ResponseEntity<Problem> hendlerListEmpty(ListEmptyException listEmptyException) {

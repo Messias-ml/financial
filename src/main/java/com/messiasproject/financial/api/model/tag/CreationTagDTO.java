@@ -15,8 +15,5 @@ public class CreationTagDTO {
     private String name;
 
     @Min(value = 0)
-    private BigDecimal initialValue;
-
-    @Min(value = 0)
     private BigDecimal balance;
 }
