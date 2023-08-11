@@ -10,6 +10,7 @@ import com.messiasproject.financial.infrastructure.interfaces.tags.microservices
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchAllTags;
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchTagByUuid;
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchTagsByName;
+import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.update.TagUpdate;
 import lombok.AllArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,8 @@ public class TagService {
     private final SearchAllTags searchAllTags;
 
     private final TagCreation tagCreation;
+
+    private final TagUpdate updateTag;
 
     private final TagDeletion tagDeletion;
 
@@ -59,5 +62,9 @@ public class TagService {
         BigDecimal balance = transactionEntity.getCurrentValueTag();
         tag.setBalance(balance);
         tagRepository.save(tag);
+    }
+
+    public void updateTag(String uuid, CreationTagDTO tagDTO) {
+        updateTag.update(uuid, tagDTO);
     }
 }

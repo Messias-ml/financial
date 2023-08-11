@@ -40,6 +40,11 @@ public class TagController {
         tagService.createTag(tagDTO);
     }
 
+    @PutMapping("/{uuid}")
+    public void updateTag(@PathVariable @NotBlank String uuid, @RequestBody @Valid CreationTagDTO tagDTO){
+        tagService.updateTag(uuid, tagDTO);
+    }
+
     @DeleteMapping("/{uuid}")
     public void deleteTag(@PathVariable String uuid){
         tagService.deleteTag(uuid);
