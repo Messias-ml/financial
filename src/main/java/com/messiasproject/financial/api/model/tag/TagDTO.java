@@ -11,6 +11,8 @@ public class TagDTO {
 
     private String name;
 
+    private StatusTag statusTag;
+
     private BigDecimal initialValue;
 
     private BigDecimal balance;

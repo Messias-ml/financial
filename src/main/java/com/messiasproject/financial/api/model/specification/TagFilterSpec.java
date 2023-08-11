@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class TagFilterSpec {
     String name;
-    StatusTag status = StatusTag.ATIVO;
+    StatusTag status;
 }

@@ -25,7 +25,9 @@ public class TagSpecification implements Specification<TagEntity> {
         if (tagFilterSpec.getName() != null){
             predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), tagFilterSpec.getName().toUpperCase() + "%"));
         }
+        if (null != tagFilterSpec.getStatus()){
         predicates.add(criteriaBuilder.equal(root.get("status"), tagFilterSpec.getStatus()));
+        }
         Predicate[] predicatesArray = predicates.toArray(new Predicate[predicates.size()]);
         return criteriaBuilder.and(predicatesArray);
     }

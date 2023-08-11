@@ -35,6 +35,7 @@ public class TagService {
 
     public Page<TagDTO> findAllTags(Pageable pageable){
         TagFilterSpec tagFilterSpec = new TagFilterSpec();
+        tagFilterSpec.setStatus(StatusTag.ATIVO);
         TagSpecification tagSpecification = new TagSpecification(tagFilterSpec);
         List<TagDTO> tagDTOS = convertList(tagRepository.findAll(tagSpecification, pageable).getContent(), TagDTO.class);
         return new PageImpl<>(tagDTOS, pageable, tagDTOS.size());
@@ -46,8 +47,8 @@ public class TagService {
         tagRepository.save(tagEntity);
     }
 
-    public List<TagDTO> findTagsByName(String name) {
-        return searchTags.findAllByName(name);
+    public Page<TagDTO> findTagsByName(String name, Pageable pageable) {
+        return searchTags.findAllByName(name, pageable);
     }
 
     public TagDTO findTagByUuid(String uuid) {

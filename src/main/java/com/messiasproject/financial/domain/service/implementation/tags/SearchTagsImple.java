@@ -8,6 +8,9 @@ import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid
 import com.messiasproject.financial.infrastructure.interfaces.tags.SearchTags;
 import com.messiasproject.financial.infrastructure.specification.TagSpecification;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,12 +27,13 @@ public class SearchTagsImple implements SearchTags {
     private final FindTagByUuid findTagByUuid;
 
     @Override
-    public List<TagDTO> findAllByName(String name) {
+    public Page<TagDTO> findAllByName(String name, Pageable pageable) {
         TagFilterSpec tagFilterSpec = new TagFilterSpec();
         tagFilterSpec.setName(name);
         TagSpecification tagSpecification = new TagSpecification(tagFilterSpec);
-        List<TagEntity> tagEntityList = tagRepository.findAll(tagSpecification);
-        return convertList(tagEntityList, TagDTO.class);
+        Page<TagEntity> tagEntityList = tagRepository.findAll(tagSpecification, pageable);
+        List<TagDTO> tagDTOS = convertList(tagEntityList.getContent(), TagDTO.class);
+        return new PageImpl<>(tagDTOS, pageable, tagDTOS.size());
     }
 
     @Override

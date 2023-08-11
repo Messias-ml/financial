@@ -1,4 +1,4 @@
-package com.messiasproject.financial.domain.service.implementation.transaction;
+package com.messiasproject.financial.domain.service.implementation.transaction.microservices.create;
 
 import com.messiasproject.financial.api.model.transaction.CreateTransactionDTO;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
@@ -6,7 +6,7 @@ import com.messiasproject.financial.domain.model.entity.TransactionEntity;
 import com.messiasproject.financial.domain.repository.TransactionRepository;
 import com.messiasproject.financial.infrastructure.interfaces.events.NotifyTagEvent;
 import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid;
-import com.messiasproject.financial.infrastructure.interfaces.transactional.CreateTransaction;
+import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.create.CreateTransaction;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class CreateTransactionImple implements CreateTransaction {
     public void create(CreateTransactionDTO transactionDTO) {
         TransactionEntity transactionEntity = convert(transactionDTO, TransactionEntity.class);
         String uuidTag = transactionDTO.getUuidTag();
-        TagEntity tagEntity = findTagByUuid.search(uuidTag);
+        TagEntity tagEntity = findTagByUuid.byTagActive(uuidTag);
         transactionEntity.setTag(tagEntity);
         if (ADD_VALUE.equals(transactionEntity.getTypeTransaction())){
             transactionEntity.setCurrentValueTag(tagEntity.getBalance().add(transactionDTO.getValue()));

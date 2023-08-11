@@ -1,11 +1,11 @@
-package com.messiasproject.financial.domain.service.implementation.transaction;
+package com.messiasproject.financial.domain.service.implementation.transaction.microservices.search;
 
 import com.messiasproject.financial.api.model.transaction.SearchTransactionDTO;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.model.entity.TransactionEntity;
 import com.messiasproject.financial.domain.repository.TransactionRepository;
 import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid;
-import com.messiasproject.financial.infrastructure.interfaces.transactional.SearchTransaction;
+import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.search.SearchTransactionByName;
 import com.messiasproject.financial.infrastructure.specification.TransactionSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,22 +17,14 @@ import java.util.List;
 
 import static com.messiasproject.financial.core.config.modelMapper.ModelMapperConvert.convertList;
 
-@AllArgsConstructor
 @Component
-public class SearchTransactionImple implements SearchTransaction {
-
-    private final TransactionRepository repository;
-
+@AllArgsConstructor
+public class SearchTransactionByNameImple implements SearchTransactionByName {
     private final FindTagByUuid findTagByUuid;
 
+    private final TransactionRepository repository;
     @Override
-    public Page<SearchTransactionDTO> findAll(Pageable pageable) {
-        List<SearchTransactionDTO> searchTransactionDTOS = convertList(repository.findAll(pageable).getContent(), SearchTransactionDTO.class);
-        return new PageImpl<>(searchTransactionDTOS, pageable, searchTransactionDTOS.size());
-    }
-
-    @Override
-    public Page<SearchTransactionDTO> byTags(String uuidTag, Pageable pageable) {
+    public Page<SearchTransactionDTO> find(String uuidTag, Pageable pageable) {
         TagEntity tagByUuid = findTagByUuid.search(uuidTag);
         TransactionSpecification transactionSpecification = new TransactionSpecification(tagByUuid);
         Page<TransactionEntity> pageTransaction = repository.findAll(transactionSpecification, pageable);

@@ -21,13 +21,13 @@ public class TagController {
     private TagService tagService;
 
     @GetMapping("/all")
-    public Page<TagDTO> findTags(@PageableDefault Pageable pageable){
+    public Page<TagDTO> findTags(@PageableDefault(sort = "name") Pageable pageable){
         return tagService.findAllTags(pageable);
     }
 
     @GetMapping
-    public List<TagDTO> findTagsByName(@RequestParam @NotBlank String name){
-        return tagService.findTagsByName(name);
+    public Page<TagDTO> findTagsByName(@RequestParam @NotBlank String name, @PageableDefault(sort = "name") Pageable pageable){
+        return tagService.findTagsByName(name, pageable);
     }
 
     @GetMapping("/{uuid}")

@@ -1,7 +1,6 @@
 package com.messiasproject.financial.domain.service.implementation.tags;
 
 import com.messiasproject.financial.api.model.tag.StatusTag;
-import com.messiasproject.financial.domain.exception.RecordNotFoundException;
 import com.messiasproject.financial.domain.exception.ThereIsNotRecordException;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.repository.TagRepository;
@@ -16,7 +15,7 @@ public class FindTagByUuidImple implements FindTagByUuid {
     @Override
     public TagEntity search(String uuid) {
         return tagRepository.findTagByUuid(uuid)
-                .orElseThrow(() -> new RecordNotFoundException(new Object[]{"do uuid da tag: "+uuid}));
+                .orElseThrow(() -> new ThereIsNotRecordException(new Object[]{"de tag com o uuid " + uuid}));
     }
 
     @Override
