@@ -1,11 +1,11 @@
-package com.messiasproject.financial.domain.service.implementation.tags;
+package com.messiasproject.financial.domain.service.implementation.tags.microservices.search;
 
 import com.messiasproject.financial.api.model.specification.TagFilterSpec;
 import com.messiasproject.financial.api.model.tag.TagDTO;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.repository.TagRepository;
-import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid;
-import com.messiasproject.financial.infrastructure.interfaces.tags.SearchTags;
+import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchTagByUuid;
+import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchTagsByName;
 import com.messiasproject.financial.infrastructure.specification.TagSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,14 +20,14 @@ import static com.messiasproject.financial.core.config.modelMapper.ModelMapperCo
 
 @Component
 @AllArgsConstructor
-public class SearchTagsImple implements SearchTags {
+public class SearchTagsByNameImple implements SearchTagsByName {
 
     private final TagRepository tagRepository;
 
-    private final FindTagByUuid findTagByUuid;
+    private final SearchTagByUuid searchTagByUuid;
 
     @Override
-    public Page<TagDTO> findAllByName(String name, Pageable pageable) {
+    public Page<TagDTO> find(String name, Pageable pageable) {
         TagFilterSpec tagFilterSpec = new TagFilterSpec();
         tagFilterSpec.setName(name);
         TagSpecification tagSpecification = new TagSpecification(tagFilterSpec);
@@ -36,9 +36,4 @@ public class SearchTagsImple implements SearchTags {
         return new PageImpl<>(tagDTOS, pageable, tagDTOS.size());
     }
 
-    @Override
-    public TagDTO findTagByUuid(String uuid) {
-        TagEntity tagEntity = findTagByUuid.search(uuid);
-        return convert(tagEntity, TagDTO.class);
-    }
 }

@@ -4,7 +4,7 @@ import com.messiasproject.financial.api.model.transaction.SearchTransactionDTO;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.model.entity.TransactionEntity;
 import com.messiasproject.financial.domain.repository.TransactionRepository;
-import com.messiasproject.financial.infrastructure.interfaces.tags.FindTagByUuid;
+import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchTagByUuid;
 import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.search.SearchTransactionByName;
 import com.messiasproject.financial.infrastructure.specification.TransactionSpecification;
 import lombok.AllArgsConstructor;
@@ -20,12 +20,12 @@ import static com.messiasproject.financial.core.config.modelMapper.ModelMapperCo
 @Component
 @AllArgsConstructor
 public class SearchTransactionByNameImple implements SearchTransactionByName {
-    private final FindTagByUuid findTagByUuid;
+    private final SearchTagByUuid searchTagByUuid;
 
     private final TransactionRepository repository;
     @Override
     public Page<SearchTransactionDTO> find(String uuidTag, Pageable pageable) {
-        TagEntity tagByUuid = findTagByUuid.search(uuidTag);
+        TagEntity tagByUuid = searchTagByUuid.findEntity(uuidTag);
         TransactionSpecification transactionSpecification = new TransactionSpecification(tagByUuid);
         Page<TransactionEntity> pageTransaction = repository.findAll(transactionSpecification, pageable);
         List<SearchTransactionDTO> searchTransactionDTOS = convertList(pageTransaction.getContent(), SearchTransactionDTO.class);

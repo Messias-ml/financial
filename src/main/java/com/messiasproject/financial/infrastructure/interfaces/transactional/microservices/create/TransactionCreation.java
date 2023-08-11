@@ -2,6 +2,6 @@ package com.messiasproject.financial.infrastructure.interfaces.transactional.mic
 
 import com.messiasproject.financial.api.model.transaction.CreateTransactionDTO;
 
-public interface CreateTransaction {
+public interface TransactionCreation {
     void create(CreateTransactionDTO transactionDTO);
 }
