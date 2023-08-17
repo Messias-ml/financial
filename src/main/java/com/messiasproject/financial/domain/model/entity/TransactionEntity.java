@@ -3,7 +3,6 @@ package com.messiasproject.financial.domain.model.entity;
 import com.messiasproject.financial.domain.model.TypeTransaction;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private TypeTransaction typeTransaction;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_tag", nullable = false)
     private TagEntity tag;
 
@@ -38,7 +37,6 @@ public class TransactionEntity {
     @Column(nullable = false, scale = 2)
     private BigDecimal valueTransaction;
 
-    @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dateTransaction;
 

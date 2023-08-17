@@ -2,6 +2,7 @@ package com.messiasproject.financial.domain.service;
 
 import com.messiasproject.financial.api.model.transaction.CreateTransactionDTO;
 import com.messiasproject.financial.api.model.transaction.SearchTransactionDTO;
+import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.DeleteTransaction;
 import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.create.TransactionCreation;
 import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.search.SearchAllTransaction;
 import com.messiasproject.financial.infrastructure.interfaces.transactional.microservices.search.SearchTransactionByName;
@@ -18,6 +19,8 @@ public class TransactionService {
     private final SearchTransactionByName searchTransactionByName;
     private final TransactionCreation transactionCreation;
 
+    private final DeleteTransaction deleteTransaction;
+
     public Page<SearchTransactionDTO> findAllTransactions(Pageable pageable) {
         return searchAllTransaction.find(pageable);
     }
@@ -28,5 +31,9 @@ public class TransactionService {
 
     public Page<SearchTransactionDTO> findAllTransactionsByTag(String uuidTag, Pageable pageable) {
         return searchTransactionByName.find(uuidTag, pageable);
+    }
+
+    public void deleteTransaction(String uuid) {
+        deleteTransaction.delete(uuid);
     }
 }

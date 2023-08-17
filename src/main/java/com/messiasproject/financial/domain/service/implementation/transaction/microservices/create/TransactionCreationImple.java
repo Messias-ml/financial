@@ -10,6 +10,8 @@ import com.messiasproject.financial.infrastructure.interfaces.transactional.micr
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 import static com.messiasproject.financial.core.config.modelMapper.ModelMapperConvert.convert;
 import static com.messiasproject.financial.domain.model.TypeTransaction.ADD_VALUE;
 
@@ -23,10 +25,18 @@ public class TransactionCreationImple implements TransactionCreation {
 
     @Override
     public void create(CreateTransactionDTO transactionDTO) {
+        if (transactionDTO.getDateTransaction() == null){
+            transactionDTO.setDateTransaction(LocalDateTime.now());
+        }
         TransactionEntity transactionEntity = convert(transactionDTO, TransactionEntity.class);
         String uuidTag = transactionDTO.getUuidTag();
         TagEntity tagEntity = searchTagByUuid.byTagActive(uuidTag);
         transactionEntity.setTag(tagEntity);
+        registerTransaction(transactionDTO, transactionEntity, tagEntity);
+    }
+
+    @Override
+    public void registerTransaction(CreateTransactionDTO transactionDTO, TransactionEntity transactionEntity, TagEntity tagEntity) {
         if (ADD_VALUE.equals(transactionEntity.getTypeTransaction())){
             transactionEntity.setCurrentValueTag(tagEntity.getBalance().add(transactionDTO.getValue()));
         } else {

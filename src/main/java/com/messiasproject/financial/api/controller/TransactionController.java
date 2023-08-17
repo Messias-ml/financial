@@ -1,8 +1,7 @@
 package com.messiasproject.financial.api.controller;
 
-import com.messiasproject.financial.api.model.transaction.SearchTransactionDTO;
 import com.messiasproject.financial.api.model.transaction.CreateTransactionDTO;
-import com.messiasproject.financial.domain.model.entity.TransactionEntity;
+import com.messiasproject.financial.api.model.transaction.SearchTransactionDTO;
 import com.messiasproject.financial.domain.service.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +32,10 @@ public class TransactionController {
     @PostMapping
     public void createTransaction(@RequestBody @Valid CreateTransactionDTO transactionDTO){
         service.createTransaction(transactionDTO);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public void deleteTransaction(@PathVariable String uuid){
+        service.deleteTransaction(uuid);
     }
 }

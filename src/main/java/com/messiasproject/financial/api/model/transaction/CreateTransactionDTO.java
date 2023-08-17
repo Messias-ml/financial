@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 public class CreateTransactionDTO {
@@ -25,4 +26,6 @@ public class CreateTransactionDTO {
     @NotNull
     @Min(0)
     private BigDecimal value;
+
+    private LocalDateTime dateTransaction;
 }
