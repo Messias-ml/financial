@@ -1,7 +1,7 @@
 package com.messiasproject.financial.domain.service.implementation.tags.microservices.search;
 
 import com.messiasproject.financial.api.model.specification.TagFilterSpec;
-import com.messiasproject.financial.api.model.tag.StatusTag;
+import com.messiasproject.financial.api.model.tag.Status;
 import com.messiasproject.financial.api.model.tag.TagDTO;
 import com.messiasproject.financial.domain.repository.TagRepository;
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.search.SearchAllTags;
@@ -24,7 +24,7 @@ public class SearchAllTagsImple implements SearchAllTags {
     @Override
     public Page<TagDTO> find(Pageable pageable) {
         TagFilterSpec tagFilterSpec = new TagFilterSpec();
-        tagFilterSpec.setStatus(StatusTag.ATIVO);
+        tagFilterSpec.setStatus(Status.ATIVO);
         TagSpecification tagSpecification = new TagSpecification(tagFilterSpec);
         List<TagDTO> tagDTOS = convertList(tagRepository.findAll(tagSpecification, pageable).getContent(), TagDTO.class);
         return new PageImpl<>(tagDTOS, pageable, tagDTOS.size());

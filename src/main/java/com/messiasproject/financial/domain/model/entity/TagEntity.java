@@ -1,6 +1,6 @@
 package com.messiasproject.financial.domain.model.entity;
 
-import com.messiasproject.financial.api.model.tag.StatusTag;
+import com.messiasproject.financial.api.model.tag.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,7 +27,7 @@ public class TagEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_tag", nullable = false)
-    private StatusTag status;
+    private Status status;
 
     @Column(scale = 2, nullable = false)
     private BigDecimal balance;
@@ -35,6 +35,6 @@ public class TagEntity {
     @PrePersist
     private void setUp(){
         setUuid(UUID.randomUUID().toString());
-        setStatus(StatusTag.ATIVO);
+        setStatus(Status.ATIVO);
     }
 }

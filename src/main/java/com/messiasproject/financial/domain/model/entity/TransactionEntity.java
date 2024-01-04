@@ -1,5 +1,6 @@
 package com.messiasproject.financial.domain.model.entity;
 
+import com.messiasproject.financial.api.model.tag.Status;
 import com.messiasproject.financial.domain.model.TypeTransaction;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class TransactionEntity {
 
     @Enumerated(EnumType.STRING)
     private TypeTransaction typeTransaction;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ATIVO;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_tag", nullable = false)

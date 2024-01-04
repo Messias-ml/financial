@@ -1,6 +1,7 @@
 package com.messiasproject.financial.api.model.transaction;
 
 import com.messiasproject.financial.api.model.tag.ResumeToExternalTagDTO;
+import com.messiasproject.financial.api.model.tag.Status;
 import com.messiasproject.financial.domain.model.TypeTransaction;
 import lombok.Data;
 
@@ -14,6 +15,8 @@ public class SearchTransactionDTO {
     private String description;
 
     private TypeTransaction typeTransaction;
+
+    private Status status;
 
     private ResumeToExternalTagDTO tag;
 

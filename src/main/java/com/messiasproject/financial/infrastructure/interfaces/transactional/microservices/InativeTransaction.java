@@ -1,5 +1,5 @@
 package com.messiasproject.financial.infrastructure.interfaces.transactional.microservices;
 
-public interface DeleteTransaction {
-    void delete(String uuid);
+public interface InativeTransaction {
+    void inative(String uuid);
 }

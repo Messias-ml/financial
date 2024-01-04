@@ -1,7 +1,6 @@
 package com.messiasproject.financial.infrastructure.specification;
 
 import com.messiasproject.financial.api.model.specification.TagFilterSpec;
-import com.messiasproject.financial.api.model.tag.StatusTag;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

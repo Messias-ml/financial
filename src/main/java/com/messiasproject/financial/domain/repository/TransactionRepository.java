@@ -12,10 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Long>, JpaSpecificationExecutor<TransactionEntity> {
-    @Transactional
-    @Modifying
-    @Query("delete from TransactionEntity t where t.uuid = :uuid")
-    void deleteByUuid(String uuid);
     @Query("SELECT tr FROM TransactionEntity tr where tr.tag = :tag")
     List<TransactionEntity> findAllByTag(TagEntity tag);
 

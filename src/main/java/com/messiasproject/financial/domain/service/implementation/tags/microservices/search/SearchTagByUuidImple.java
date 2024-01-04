@@ -1,6 +1,6 @@
 package com.messiasproject.financial.domain.service.implementation.tags.microservices.search;
 
-import com.messiasproject.financial.api.model.tag.StatusTag;
+import com.messiasproject.financial.api.model.tag.Status;
 import com.messiasproject.financial.api.model.tag.TagDTO;
 import com.messiasproject.financial.domain.exception.ThereIsNotRecordException;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
@@ -24,7 +24,7 @@ public class SearchTagByUuidImple implements SearchTagByUuid {
     @Override
     public TagEntity byTagActive(String uuid) {
         TagEntity tagEntity = findEntity(uuid);
-        if (StatusTag.INATIVO.equals(tagEntity.getStatus())){
+        if (Status.INATIVO.equals(tagEntity.getStatus())){
             throw new ThereIsNotRecordException(new Object[]{"de tag com o uuid " + uuid});
         }
         return tagEntity;

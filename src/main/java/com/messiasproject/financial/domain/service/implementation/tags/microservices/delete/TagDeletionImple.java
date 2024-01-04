@@ -1,6 +1,6 @@
 package com.messiasproject.financial.domain.service.implementation.tags.microservices.delete;
 
-import com.messiasproject.financial.api.model.tag.StatusTag;
+import com.messiasproject.financial.api.model.tag.Status;
 import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.repository.TagRepository;
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.delete.TagDeletion;
@@ -21,7 +21,7 @@ public class TagDeletionImple implements TagDeletion {
         try {
             tagRepository.delete(tagEntity);
         } catch (DataIntegrityViolationException dt) {
-            tagEntity.setStatus(StatusTag.INATIVO);
+            tagEntity.setStatus(Status.INATIVO);
             tagRepository.save(tagEntity);
         }
     }

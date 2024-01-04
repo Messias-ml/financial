@@ -2,7 +2,6 @@ package com.messiasproject.financial.domain.service;
 
 import com.messiasproject.financial.api.model.tag.CreationTagDTO;
 import com.messiasproject.financial.api.model.tag.TagDTO;
-import com.messiasproject.financial.domain.model.entity.TagEntity;
 import com.messiasproject.financial.domain.model.entity.TransactionEntity;
 import com.messiasproject.financial.domain.repository.TagRepository;
 import com.messiasproject.financial.infrastructure.interfaces.tags.microservices.create.TagCreation;
@@ -17,8 +16,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 @AllArgsConstructor
